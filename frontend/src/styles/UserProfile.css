@@ -1,0 +1,156 @@
+.user-profile-container {
+  display: flex;
+  height: 100vh;
+  background-color: #3d2302;
+  font-family: 'Arial', sans-serif;
+  color: #fff0d0;
+}
+
+.sidebar {
+  width: 80px;
+  background-color: #3d2302; /* Dark brown */
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.sidebar-icons svg {
+  color: #fff0d0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.sidebar-icons svg:hover {
+  transform: scale(1.2);
+}
+.profile-left {
+  flex: 1;
+  padding: 30px;
+  background-color: #64514c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #3d2302;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff0d0;
+}
+
+.social-links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-links a {
+  background-color: #8b5e3c;
+  padding: 10px 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #fff0d0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.profile-right {
+  flex: 2;
+  padding: 30px;
+  background-color: #a67c52;
+  border-radius: 10px;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff0d0;
+}
+
+.bio-card {
+  background-color: #8b5e3c;
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #fff0d0;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.stat-card {
+  flex: 1;
+  background-color: #3d2302;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #fff0d0;
+}
+
+.additional-info {
+  background-color: #8b5e3c;
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fff0d0;
+}
+
+.edit-button {
+  background-color: #3d2302;
+  color: #fff0d0;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: center;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #2b1601;
+}
+
+.follow-btn {
+  background-color: #804000;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  margin-top: 20px;
+}
+
+.follow-btn:hover {
+  background-color: #5a2f00;
+}
