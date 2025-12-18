@@ -13,6 +13,7 @@ import OAuthCallback from './components/OAuthCallback';
 import OAuth2Redirect from './components/OAuth2Redirect';
 import Todo from './components/Todo';
 import Notifications from './components/Notifications';
+import Timer from './components/Timer';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
           <Route path="/todo" element={<Todo />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/timer" element={<Timer />} />
         </Routes>
       </Router>
     </AuthProvider>

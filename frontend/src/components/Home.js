@@ -5,6 +5,8 @@ import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import PostFeed from './PostFeed';
+import { motion } from 'motion/react';
+import { fadeIn, slideUp, staggerContainer, hoverScale } from '../utils/animations';
 
 function Home() {
   const navigate = useNavigate();
@@ -90,18 +92,44 @@ function Home() {
 
   return (
     <div className="home-wrapper">
-      <div className="sidebar">
+      <motion.div
+        className="sidebar glass-panel"
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 100 }}
+      >
         <img src={logo} alt="Logo" className="logo-image" />
-        <button className="icon-btn" onClick={handleChatClick}><MessageCircle size={24} /></button>
-        <button className="icon-btn" onClick={() => navigate('/todo')}><ListTodo size={24} /></button>
-        <button className="icon-btn" onClick={() => navigate('/notifications')}><Bell size={24} /></button>
-        <button className="icon-btn" onClick={() => navigate('/bot')}><Bot size={24} /></button>
-        <button className="icon-btn" onClick={handleFileClick}><Folder size={24} /></button>
-      </div>
+        <div className="sidebar-icons">
+          {[
+            { icon: MessageCircle, action: handleChatClick },
+            { icon: ListTodo, action: () => navigate('/todo') },
+            { icon: Bell, action: () => navigate('/notifications') },
+            { icon: Bot, action: () => navigate('/bot') },
+            { icon: Folder, action: handleFileClick }
+          ].map((item, index) => (
+            <motion.button
+              key={index}
+              className="icon-btn"
+              onClick={item.action}
+              whileHover={{ scale: 1.2, color: 'var(--primary-color)' }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <item.icon size={24} />
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
 
       <div className="main-content">
         <header className="header">
-          <h1 className="quote">{randomQuote}</h1>
+          <motion.h1
+            className="quote gradient-text"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            {randomQuote}
+          </motion.h1>
           <div className="profile-icon" onClick={() => navigate(user ? `/profile/${user.username}` : '/login')}>
             <UserCircle size={32} style={{ cursor: 'pointer' }} />
           </div>
@@ -115,49 +143,54 @@ function Home() {
             onChange={handleSearchChange}
           />
           {searchResults.length > 0 && (
-            <ul className="search-results">
+            <ul className="search-results glass-panel">
               {searchResults.map(user => (
                 <li key={user.id}>
-                  <span onClick={() => handleUserClick(user.username)} style={{ cursor: 'pointer', color: 'blue' }}>
+                  <span onClick={() => handleUserClick(user.username)} style={{ cursor: 'pointer', color: 'var(--primary-color)' }}>
                     {user.username} ({user.name || 'No name'})
                   </span>
-                  <button onClick={() => handleFollowClick(user.id)}>Follow</button>
+                  <button onClick={() => handleFollowClick(user.id)} className="btn-small">Follow</button>
                 </li>
               ))}
             </ul>
           )}
         </div>
 
-        <div className="content-area">
+        <motion.div
+          className="content-area"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="left-section">
-            <div className="post-header">
-              {/* Removed buttons as PostFeed handles creation */}
-            </div>
             <PostFeed />
           </div>
 
-          <div className="right-section">
-            <div className="card">
+          <motion.div className="right-section" variants={slideUp}>
+            <motion.div className="card glass-panel" whileHover={hoverScale}>
               <h3>Welcome</h3>
-            </div>
-            <div className="card">
-              <h3>TO DO LIST</h3>
-              <button className="action-btn" onClick={() => navigate('/todo')}><ListTodo size={18} /> Open</button>
-            </div>
-            <div className="card">
-              <h3>Timer</h3>
-              <button className="action-btn" onClick={() => navigate('/timer')}><TimerReset size={18} /> Start</button>
-            </div>
-            <div className="card">
-              <h3>Document Hub</h3>
-              <button className="action-btn" onClick={() => navigate('/filesharing')}><Upload size={18} /> Access</button>
-            </div>
-            <div className="card">
-              <h3>Chatbox</h3>
-              <button className="action-btn" onClick={handleChatClick}><MessageSquare size={18} /> Open</button>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+
+            {[
+              { title: "TO DO LIST", icon: ListTodo, action: () => navigate('/todo'), btnText: "Open" },
+              { title: "Timer", icon: TimerReset, action: () => navigate('/timer'), btnText: "Start" },
+              { title: "Document Hub", icon: Upload, action: () => navigate('/filesharing'), btnText: "Access" },
+              { title: "Chatbox", icon: MessageSquare, action: handleChatClick, btnText: "Open" }
+            ].map((card, index) => (
+              <motion.div
+                key={index}
+                className="card glass-panel"
+                variants={slideUp}
+                whileHover={hoverScale}
+              >
+                <h3>{card.title}</h3>
+                <button className="action-btn" onClick={card.action}>
+                  <card.icon size={18} /> {card.btnText}
+                </button>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
